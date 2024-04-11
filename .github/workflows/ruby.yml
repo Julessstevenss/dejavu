@@ -1,0 +1,38 @@
+{"cplatform":"mobile","cbr":"com.google.android.youtube","cff":"SMALL_FORM_FACTOR","c":"android","cmodel":"moto g play - 2023","cos":"Android","soc":"Mediatek:MT6765H","csdk":"31","cbrver":"19.14.38","cver":"19.14.38","cosver":"12.S3SGS32.39-191-15.7fd94","cbrand":"motorola","fmt":"N\/A","afmt":"N\/A","bh":0,"conn":2,"volume":100,"loudness":"0.000","bat":"0.680:0","df":"0\/0","time":"2024-04-11T06:57:48.441Z","drm":"","mtext":"","error":"No errors"}# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and https://actions-on-google.asuscomm.com/actions-on-google/api/v1/authorize?client_id=Bd7iCcMf3Q3TXLv6elZAoGAIRZNJweO3KSt4JeOxnNm&scope=smart_home&response_type=code&state=APvkAzF5TGFhrgspnDf35hubdywcRkjn27txrJh9SOpYMnpjthgcJUDmvfkvrmXZ2EB9nu16oHQtqehFqS5TMj88mHHV2poO83pS-HIg-6mDWoDs1D9Oo34i8ciHroD0Q22LgYOzAq9FrBwaqJtpxWRHdDbHXkSrkCjTXM-jQFeNDYKwMM1yOr3wwrlqON_LmrRpZfGiNfTimf90qat-jHC9I5k6ZeuoYiUBsRez6tS38ED-twmtTV1lCGh-u2F3QVQ7f9ZNm_nqobriCGWAnhV7Gk1UmrTdDpz_nEo0rcLjSNOP42eVI-aVa-ZnT1gWQmflGMQV5WGBG7US77fYRIz0rsd-xNnDz_46K6o1A9tOwe-MgemXiZvrraZk4_gr1_q9mzXi2qSm6_DoDvIXVlokOHcriPDgwF68nmvWGIyi9_5pDiBZw671UJ0sKYUPe-Cuc_nGuyGNtpy58tmdJ6M0sarx-FG8EiBP9rbT&redirect_uri=https://oauth-redirect.googleusercontent.com/r/asus-router governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+
+name: Ruby
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['2.6', '2.7', '3.0']
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Ruby
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+    # uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Run tests
+      run: bundle exec rake
